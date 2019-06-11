@@ -8,11 +8,11 @@ router.post('/login', async function (ctx, next) {
     const { username, password } = ctx.request.body
     const data = await login(username, password)
     if (data.username) {
+        console.log(ctx)
         // 设置 session
         ctx.session.username = data.username
         ctx.session.realname = data.realname
-
-        ctx.body = new SuccessModel()
+        ctx.body = new SuccessModel(data)
         return
     }
     ctx.body = new ErrorModel('登录失败')
